@@ -1,0 +1,24 @@
+<app-loading-animation *ngIf="loading"></app-loading-animation>
+<div class="d-flex align-items-center justify-content-center vh-100 bg-body-tertiary">
+    <div>
+        <div class="card">
+            <main class="form-signin w-100 m-auto">
+                <div class="d-flex justify-content-center">
+                    <img class="mb-5" src="https://img.logoipsum.com/311.svg" alt="">
+                </div>
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="nome@exemplo.com"
+                        [(ngModel)]="user.login">
+                    <label for="floatingInput">Nome de usuário</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Senha"
+                        [(ngModel)]="user.password" (keyup.enter)="login()">
+                    <label for="floatingPassword">Senha</label>
+                </div>
+                <button class="btn btn-primary w-100 py-2" type="button" (click)="login()">Entrar</button>
+            </main>
+        </div>
+        <span id="msg" class="d-flex align-items-center justify-content-center mt-4" *ngIf="mensagem.length > 0">{{ mensagem }}</span>
+    </div>
+</div>
