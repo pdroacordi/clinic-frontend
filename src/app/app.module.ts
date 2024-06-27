@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoadingAnimationComponent } from './components/loading-animation/loading-animation.component';
 import { MainComponent } from './components/main/main.component';
+import { AnamnesisComponent } from './components/anamnesis/anamnesis.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { MainComponent } from './components/main/main.component';
     AppComponent,
     LoginComponent,
     LoadingAnimationComponent,
-    MainComponent
+    MainComponent,
+    AnamnesisComponent
   ],
   imports: [
     BrowserModule,
