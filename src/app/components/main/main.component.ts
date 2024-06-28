@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PatientsService } from '../../services/patients/patients.service';
 import { Patient } from '../../model/Patient';
 import { Pageable } from '../../model/Pageable';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -15,7 +16,8 @@ export class MainComponent implements OnInit {
   public loading: boolean = true;
   public curPatientPage : number = 0;
   public hasMorePages : boolean = true;
-  public constructor(private patientService: PatientsService) {
+  public isSearching : boolean = false;
+  public constructor(private patientService: PatientsService, private router : Router) {
       this.getPatientList();
   }
   ngOnInit(): void {
@@ -23,7 +25,14 @@ export class MainComponent implements OnInit {
   }
 
   public searchByName() {
+    if(this.keyword === ""){
+      this.curPatientPage = 0;
+      this.getPatientList();
+      return;
+    }
+
     this.loading = true;
+    this.isSearching = true;
     this.patientService.getPatientsByName(this.keyword).subscribe({
       next: (res: Patient[]) => {
         this.list = res;
@@ -37,6 +46,7 @@ export class MainComponent implements OnInit {
 
   public getPatientList(){
     this.loading = true;
+    this.isSearching = false;
     this.patientService.getAllPatients(this.curPatientPage).subscribe({
       next: (res: Pageable) => {
         this.hasMorePages = !res.last;
@@ -64,5 +74,4 @@ export class MainComponent implements OnInit {
       }
     })
   }
-
 }

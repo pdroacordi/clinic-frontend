@@ -1,0 +1,36 @@
+*{
+    z-index: 1;
+}
+
+.nav-link{
+    color: black;
+    cursor: pointer;
+}
+
+.nav-link.active {
+    color: #fff;
+    background-color: #B197FC;
+    cursor: default;
+}
+
+.scrollable-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch; 
+}
+
+.scrollable-tabs .nav-item {
+    flex: 0 0 auto; 
+}
+
+.scrollable-tabs .nav-link {
+    padding: 0.5rem 1rem;
+    display: block;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+  }

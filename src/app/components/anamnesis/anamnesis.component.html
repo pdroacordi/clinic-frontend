@@ -1,1 +1,149 @@
-<p>anamnesis works!</p>
+<app-loading-animation *ngIf="loading"></app-loading-animation>
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col-12 d-flex align-items-center justify-content-center">
+            <div style="flex: 0 0 auto; width: 48px; text-align: center; cursor: pointer;">
+                <i class="fa-solid fa-arrow-left fa-2x" (click)="backToHome()"></i>
+            </div>
+            <div style="flex-grow: 1; text-align: center;">
+                <h3>Ficha do Paciente</h3>
+            </div>
+            <div style="flex: 0 0 auto; width: 48px;"></div>
+        </div>
+    </div>
+</div>
+<div class="vw-100 p-5">
+    <ul class="nav nav-tabs scrollable-tabs">
+        <li class="nav-item">
+            <a class="nav-link" [class.active]="activeTab === Tab.BASIC" (click)="activeTab = Tab.BASIC">Informações
+                Básicas</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" [class.active]="activeTab === Tab.CLINICAL"
+                (click)="activeTab = Tab.CLINICAL">Informações Clínicas</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" [class.active]="activeTab === Tab.TEST" (click)="activeTab = Tab.TEST">Exames e
+                Diagnósticos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" [class.active]="activeTab === Tab.MEDIA" (click)="activeTab = Tab.MEDIA">Mídias</a>
+        </li>
+    </ul>
+</div>
+<!--BASIC INFO-->
+<div *ngIf="activeTab === Tab.BASIC" class="px-5">
+    <div class="row g-3">
+        <div class="col-md-12 col-lg-3 col-xl-2 d-flex align-items-center justify-content-center">
+            <div class="card">
+                <div class="card-body">
+                    <img src="https://img.icons8.com/?size=300&id=98957&format=png&color=000000" class="img-fluid mb-3"
+                        ng-hide="imageSrc" alt="Placeholder" width="100%">
+                    <div class="mb-3">
+                        <input class="form-control" type="file" id="imageUpload" capture="camera" accept="image/*">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-9 col-xl-10 mb-3">
+            <div class="row g-3">
+                <div class="col-12">
+                    <label for="genreInput" class="form-label">Sexo</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="genreInput" id="genreM" value="M" checked>
+                        <label class="form-check-label" for="genreM">
+                            Masculino
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="genreInput" id="genreF" value="F">
+                        <label class="form-check-label" for="genreF">
+                            Feminino
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="genreInput" id="genreN" value="N">
+                        <label class="form-check-label" for="genreN">
+                            Prefiro não informar
+                        </label>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                    <label for="inputName" class="form-label">Nome</label>
+                    <input autofocus type="text" class="form-control" id="inputName">
+                </div>
+                <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12">
+                    <label for="inputOccupation" class="form-label">Ocupação</label>
+                    <input autofocus type="text" class="form-control" id="inputOccupation">
+                </div>
+                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-12">
+                    <label for="birthday" class="form-label">Nascimento</label>
+                    <input autofocus type="date" id="birthday" name="birthday" class="form-control">
+                </div>
+                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-12">
+                    <label for="phoneNumber" class="form-label">Telefone</label>
+                    <input autofocus type="tel" id="phoneNumber" name="phoneNumber" class="form-control"
+                        mask="(00) 0 0000-0000" prefix="+55">
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-12">
+                    <label for="inputZip" class="form-label">CEP</label>
+                    <input autofocus type="text" class="form-control" id="inputZip" mask="00.000-000"
+                        [(ngModel)]="zipCode" name="zipcode" (blur)="fillFieldsWithObtainedInfo()">
+                </div>
+                <div class="col-sm-12 col-md-4 col-lg-3">
+                    <label for="inputState" class="form-label">Estado</label>
+                    <select id="inputState" class="form-select" [(ngModel)]="state" name="state">
+                        <option selected value="">Escolher...</option>
+                        <option value="AC">AC</option>
+                        <option value="AL">AL</option>
+                        <option value="AP">AP</option>
+                        <option value="AM">AM</option>
+                        <option value="BA">BA</option>
+                        <option value="CE">CE</option>
+                        <option value="ES">ES</option>
+                        <option value="GO">GO</option>
+                        <option value="MA">MA</option>
+                        <option value="MT">MT</option>
+                        <option value="MS">MS</option>
+                        <option value="MG">MG</option>
+                        <option value="PA">PA</option>
+                        <option value="PB">PB</option>
+                        <option value="PR">PR</option>
+                        <option value="PE">PE</option>
+                        <option value="PI">PI</option>
+                        <option value="RJ">RJ</option>
+                        <option value="RN">RN</option>
+                        <option value="RS">RS</option>
+                        <option value="RO">RO</option>
+                        <option value="RR">RR</option>
+                        <option value="SC">SC</option>
+                        <option value="SP">SP</option>
+                        <option value="SE">SE</option>
+                        <option value="TO">TO</option>
+                        <option value="DF">DF</option>
+                    </select>
+                </div>
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <label for="inputCity" class="form-label">Cidade</label>
+                    <input autofocus type="text" class="form-control" id="inputCity" [(ngModel)]="city" name="city">
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label for="inputAddress" class="form-label">Logradouro</label>
+                    <input type="text" class="form-control" id="inputAddress">
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <label for="inputNum" class="form-label">Número</label>
+                    <input type="number" class="form-control" id="inputNum">
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <label for="inputNeighborhood" class="form-label">Bairro</label>
+                    <input type="number" class="form-control" id="inputNeighborhood">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--CLINICAL-->
+<div *ngIf="activeTab === Tab.CLINICAL" class="px-5">
+    <p>Puta</p>
+</div>

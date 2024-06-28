@@ -9,6 +9,8 @@ import { LoginComponent } from './components/login/login.component';
 import { LoadingAnimationComponent } from './components/loading-animation/loading-animation.component';
 import { MainComponent } from './components/main/main.component';
 import { AnamnesisComponent } from './components/anamnesis/anamnesis.component';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+
 
 
 @NgModule({
@@ -23,10 +25,12 @@ import { AnamnesisComponent } from './components/anamnesis/anamnesis.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxMaskDirective
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideNgxMask({ /* opções de cfg */ })
   ],
   bootstrap: [AppComponent]
 })

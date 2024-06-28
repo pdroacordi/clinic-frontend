@@ -5,6 +5,8 @@ export class Patient {
     name: string = "";
     birthday: string = "";
     gender: string = "";
+    phoneNumber : string = "";
+    email : string = "";
     zipCode: string = "";
     address: string = "";
     addOn: string = "";
