@@ -12,7 +12,7 @@
         </div>
     </div>
 </div>
-<div class="vw-100 p-5">
+<div class="vw-100 p-5 ">
     <ul class="nav nav-tabs scrollable-tabs">
         <li class="nav-item">
             <a class="nav-link" [class.active]="activeTab === Tab.BASIC" (click)="activeTab = Tab.BASIC">Informações
@@ -37,10 +37,13 @@
         <div class="col-md-12 col-lg-3 col-xl-2 d-flex align-items-center justify-content-center">
             <div class="card">
                 <div class="card-body">
-                    <img src="https://img.icons8.com/?size=300&id=98957&format=png&color=000000" class="img-fluid mb-3"
-                        ng-hide="imageSrc" alt="Placeholder" width="100%">
+                    <img [src]="patient.diagnosis.pictureLink ? patient.diagnosis.pictureLink : 'https://img.icons8.com/?size=300&id=98957&format=png&color=000000' "
+                        class="img-fluid mb-3" ng-hide="imageSrc" alt="Placeholder" width="100%">
                     <div class="mb-3">
-                        <input class="form-control" type="file" id="imageUpload" capture="camera" accept="image/*">
+                        <input type="file" id="fileInput" (change)="uploadProfilePicture($event)" />
+                        <label for="fileInput" class="btn btn-primary" id="btnFileInput" style="width: 100%;">
+                            <i class="fas fa-upload"></i> Enviar Foto
+                        </label>
                     </div>
                 </div>
             </div>
@@ -50,19 +53,22 @@
                 <div class="col-12">
                     <label for="genreInput" class="form-label">Sexo</label><br>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="genreInput" id="genreM" value="M" checked>
+                        <input class="form-check-input" type="radio" name="genreInput" id="genreM" value="M"
+                            [(ngModel)]="patient.gender">
                         <label class="form-check-label" for="genreM">
                             Masculino
                         </label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="genreInput" id="genreF" value="F">
+                        <input class="form-check-input" type="radio" name="genreInput" id="genreF" value="F"
+                            [(ngModel)]="patient.gender">
                         <label class="form-check-label" for="genreF">
                             Feminino
                         </label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="genreInput" id="genreN" value="N">
+                        <input class="form-check-input" type="radio" name="genreInput" id="genreN" value="N"
+                            [(ngModel)]="patient.gender">
                         <label class="form-check-label" for="genreN">
                             Prefiro não informar
                         </label>
@@ -70,29 +76,31 @@
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                     <label for="inputName" class="form-label">Nome</label>
-                    <input autofocus type="text" class="form-control" id="inputName">
+                    <input autofocus type="text" class="form-control" id="inputName" [(ngModel)]="patient.name">
                 </div>
                 <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12">
                     <label for="inputOccupation" class="form-label">Ocupação</label>
-                    <input autofocus type="text" class="form-control" id="inputOccupation">
+                    <input autofocus type="text" class="form-control" id="inputOccupation"
+                        [(ngModel)]="patient.occupation" />
                 </div>
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-12">
                     <label for="birthday" class="form-label">Nascimento</label>
-                    <input autofocus type="date" id="birthday" name="birthday" class="form-control">
+                    <input autofocus type="date" id="birthday" name="birthday" class="form-control"
+                        [(ngModel)]="patient.birthday">
                 </div>
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-12">
                     <label for="phoneNumber" class="form-label">Telefone</label>
                     <input autofocus type="tel" id="phoneNumber" name="phoneNumber" class="form-control"
-                        mask="(00) 0 0000-0000" prefix="+55">
+                        mask="(00) 0 0000-0000" prefix="+55" [(ngModel)]="patient.phoneNumber">
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-12">
                     <label for="inputZip" class="form-label">CEP</label>
                     <input autofocus type="text" class="form-control" id="inputZip" mask="00.000-000"
-                        [(ngModel)]="zipCode" name="zipcode" (blur)="fillFieldsWithObtainedInfo()">
+                        [(ngModel)]="patient.zipCode" name="zipcode" (blur)="fillFieldsWithObtainedInfo()">
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-3">
                     <label for="inputState" class="form-label">Estado</label>
-                    <select id="inputState" class="form-select" [(ngModel)]="state" name="state">
+                    <select id="inputState" class="form-select" [(ngModel)]="patient.state" name="state">
                         <option selected value="">Escolher...</option>
                         <option value="AC">AC</option>
                         <option value="AL">AL</option>
@@ -125,19 +133,20 @@
                 </div>
                 <div class="col-lg-6 col-md-8 col-sm-12">
                     <label for="inputCity" class="form-label">Cidade</label>
-                    <input autofocus type="text" class="form-control" id="inputCity" [(ngModel)]="city" name="city">
+                    <input autofocus type="text" class="form-control" id="inputCity" [(ngModel)]="patient.city"
+                        name="city">
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label for="inputAddress" class="form-label">Logradouro</label>
-                    <input type="text" class="form-control" id="inputAddress">
+                    <input type="text" class="form-control" id="inputAddress" [(ngModel)]="patient.address">
                 </div>
                 <div class="col-md-3 col-sm-12">
                     <label for="inputNum" class="form-label">Número</label>
-                    <input type="number" class="form-control" id="inputNum">
+                    <input type="number" class="form-control" id="inputNum" [(ngModel)]="patient.num">
                 </div>
                 <div class="col-md-3 col-sm-12">
                     <label for="inputNeighborhood" class="form-label">Bairro</label>
-                    <input type="number" class="form-control" id="inputNeighborhood">
+                    <input type="text" class="form-control" id="inputNeighborhood" [(ngModel)]="patient.neighborhood">
                 </div>
             </div>
         </div>
@@ -145,5 +154,112 @@
 </div>
 <!--CLINICAL-->
 <div *ngIf="activeTab === Tab.CLINICAL" class="px-5">
-    <p>Puta</p>
+    <div class="mb-3">
+        <label for="txtClinicalDiagnosis" class="form-label">Diagnóstico Clínico</label>
+        <textarea class="form-control" id="txtClinicalDiagnosis" rows="3"
+            [(ngModel)]="patient.diagnosis.clinicalDiagnosis"></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="txtMainComplain" class="form-label">Queixa Principal</label>
+        <textarea class="form-control" id="txtMainComplain" rows="3"
+            [(ngModel)]="patient.diagnosis.mainComplain"></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="txtHMPHMA" class="form-label">HMP / HMA</label>
+        <textarea class="form-control" id="txtHMPHMA" rows="3" [(ngModel)]="patient.diagnosis.hmpHma"></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="txtMedications" class="form-label">Medicações</label>
+        <textarea class="form-control" id="txtMedications" rows="3"
+            [(ngModel)]="patient.diagnosis.medications"></textarea>
+    </div>
+</div>
+<!--TESTS-->
+<div *ngIf="activeTab === Tab.TEST" class="px-5">
+    <div class="mb-3">
+        <label for="txtComplemTest" class="form-label">Exames Complementares</label>
+        <textarea class="form-control" id="txtComplemTest" rows="3"
+            [(ngModel)]="patient.diagnosis.complementaryExams"></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="txtClinicalConduct" class="form-label">Conduta Clínica</label>
+        <textarea class="form-control" id="txtClinicalConduct" rows="3"
+            [(ngModel)]="patient.diagnosis.clinicalDonduct"></textarea>
+    </div>
+</div>
+<!--MEDIA-->
+<div *ngIf="activeTab === Tab.MEDIA" class="px-5">
+    <div class="row">
+        <div class="col-12 custom-file-input-container">
+            <button class="btn btn-primary" (click)="showMediaForm()"><i class="fas fa-upload"></i>Enviar
+                Foto/Vídeo</button>
+        </div>
+    </div>
+    <div class="row" *ngFor="let MEDIA of patient.media">
+        <div class="col-12">
+            <a href="{{MEDIA.link}}" target="_blank">{{MEDIA.name}}</a>
+        </div>
+    </div>
+</div>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMedia" id="btnModalMedia"
+    style="visibility: hidden;">
+    Launch demo modal
+</button>
+<div>
+    <div class="modal fade" id="modalMedia" tabindex="-1" aria-labelledby="modalMediaLabel" aria-hidden="true" data-bs-backdrop="false">
+        <div class="overlay"></div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalMediaLabel">Envio de Mídia</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="body-text">
+                    <label for="inputMediaDesc" class="form-label">Descrição</label>
+                    <input autofocus type="text" class="form-control" id="inputMediaDesc" [(ngModel)]="mediaDesc" name="mediaDesc">
+                    <div class="mt-3">
+                        <label for="formFile" class="form-label">Escolha um arquivo</label>
+                        <input class="form-control" type="file" id="formFile" (change)="onFileSelected($event)">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveMedia()">Enviar</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="d-flex align-items-center justify-content-center mt-5 ">
+    <button type="button" class="btn btn-lg save btn-primary" (click)="savePatient()"><i
+            class="fa-solid fa-floppy-disk"></i>Salvar</button>
+</div>
+
+<!--MODAL ALERT-->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAlert" id="btnModalAlert"
+    style="visibility: hidden;">
+    Launch demo modal
+</button>
+<div>
+    <div class="modal fade" id="modalAlert" tabindex="-1" aria-labelledby="modalAlertLabel" aria-hidden="true"
+        data-bs-backdrop="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalAlertLabel">{{ alertTitle }}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="body-text">
+                    {{ alertMsg }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

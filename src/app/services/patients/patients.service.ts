@@ -20,10 +20,32 @@ export class PatientsService {
     return this.http.get<Patient[]>(`${environment.API_URL}/patients/search?name=${name}`, {headers: header});
   }
 
+  public getPatientById(id : number): Observable<Patient>{
+    let header = {
+      "Authorization" : this.authService.getToken()
+    };
+    return this.http.get<Patient>(`${environment.API_URL}/patients/${id}`, {headers: header});
+  }
+
   public getAllPatients(page : number = 0): Observable<Pageable>{
     let header = {
       "Authorization" : this.authService.getToken()
     };
     return this.http.get<Pageable>(`${environment.API_URL}/patients?p=${page}`, {headers: header});
+  }
+
+  public createPatient(patient : Patient): Observable<Patient>{
+    let header = {
+      "Authorization" : this.authService.getToken()
+    };
+    return this.http.post<Patient>(`${environment.API_URL}/patients`, patient, {headers: header})
+  }
+
+  public updatePatient(patient : Patient): Observable<Patient>{
+    let header = {
+      "Authorization" : this.authService.getToken()
+    };
+    console.log(patient);
+    return this.http.put<Patient>(`${environment.API_URL}/patients/${patient.id}`, patient, {headers: header});
   }
 }

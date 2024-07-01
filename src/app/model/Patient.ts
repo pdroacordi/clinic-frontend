@@ -1,4 +1,5 @@
 import { Diagnosis } from "./Diagnosis";
+import { Media } from "./Media";
 
 export class Patient {
     id: number = 0;
@@ -16,5 +17,7 @@ export class Patient {
     occupation: string = "";
     diagnosis: Diagnosis = new Diagnosis();
     active: number = 0;
+    neighborhood : string = "";
+    media : Media[] = []
 }
   

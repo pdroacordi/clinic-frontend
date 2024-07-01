@@ -25,17 +25,17 @@
         <hr class>
     </div>
 </div>
-<div class="row px-5 my-4" *ngFor="let PACIENT of list">
+<div class="row px-5 my-4" *ngFor="let PATIENT of list">
     <div class="col-12">
         <div class="card mb-3">
             <div class="row g-0">
               <div class="col-md-1 d-flex align-items-center">
-                <img [src]="PACIENT.diagnosis.pictureLink ? PACIENT.diagnosis.pictureLink : 'https://ui-avatars.com/api/?name='+PACIENT.name.charAt(0) " class="img-fluid rounded" alt="..." style="width: 100%;">
+                <img [src]="PATIENT.diagnosis.pictureLink ? PATIENT.diagnosis.pictureLink : 'https://ui-avatars.com/api/?name='+PATIENT.name.charAt(0) " class="img-fluid rounded" alt="..." style="width: 100%;">
               </div>
               <div class="col-md-4">
                 <div class="card-body">
-                  <a [routerLink]="['/anamnesis', PACIENT.id]"><h5 class="card-title">{{ PACIENT.name }}</h5></a>
-                  <p class="card-text">{{ PACIENT.diagnosis.clinicalDiagnosis }}</p>
+                  <a [routerLink]="['/anamnesis', PATIENT.id]"><h5 class="card-title">{{ PATIENT.name }}</h5></a>
+                  <p class="card-text">{{ PATIENT.diagnosis.clinicalDiagnosis }}</p>
                   <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
                 </div>
               </div>
