@@ -13,4 +13,4 @@ From database modeling to development, the system was only carried by one person
 
 ## ⚙️ Back-End
 If the Back-end part of this system interests you, you might check out its repository.
-* **Front-End Repository** - [Click Me](https://github.com/pdroacordi/clinic)
+* **Back-End Repository** - [Click Me](https://github.com/pdroacordi/clinic)
