@@ -102,6 +102,7 @@ export class AnamnesisComponent implements OnInit {
       error: (err: any) => {
         this.loading = false;
         this.showAlert("Erro", "Erro ao atualizar");
+        console.error(err);
       }
     })
   }
@@ -172,11 +173,11 @@ export class AnamnesisComponent implements OnInit {
         let m: Media = new Media();
         m.link = res.path;
         m.name = this.mediaDesc;
-        m.patient = this.patient;
         if (this.idPatient !== "new") {
-          this.uploadService.saveMedia(m).subscribe({
+          this.uploadService.saveMedia(m, this.patient.id).subscribe({
             next: (res: Media) => {
-              this.showAlert("Sucesso", "Mídia enviada com sucesso")
+              this.showAlert("Sucesso", "Mídia enviada com sucesso");
+              m.id = res.id;
             },
             error: (err: any) => {
               console.error(err);
@@ -193,8 +194,8 @@ export class AnamnesisComponent implements OnInit {
     });
   }
 
-  public deleteMedia(index: number){
-    let media : Media = this.patient.media[index];
+  public deleteMedia(index: number) {
+    let media: Media = this.patient.media[index];
     this.uploadService.deleteFile(media).subscribe({
       next: (res: MessageModel) => {
         this.uploadService.deleteMedia(media).subscribe({
@@ -204,7 +205,7 @@ export class AnamnesisComponent implements OnInit {
           },
           error: (err: any) => {
             console.error(err);
-            this.showAlert("Erro", "Não foi possível mídia");
+            this.showAlert("Erro", "Não foi possível excluir mídia");
           }
         })
       },

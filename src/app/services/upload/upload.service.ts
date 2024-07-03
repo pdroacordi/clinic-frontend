@@ -20,11 +20,11 @@ export class UploadService {
     return this.http.post<PathToFile>(`${environment.API_URL}/upload`, formData, {headers: header});
   }
 
-  public saveMedia(media : Media): Observable<Media>{
+  public saveMedia(media : Media, patientId : number): Observable<Media>{
     let header = {
       "Authorization" : this.auth.getToken()
     };
-    return this.http.post<Media>(`${environment.API_URL}/media`, media, {headers: header});
+    return this.http.post<Media>(`${environment.API_URL}/media/${patientId}`, media, {headers: header});
   }
 
   public deleteFile(media : Media): Observable<any>{

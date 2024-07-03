@@ -106,6 +106,10 @@
     font-size: 1em;
 }
 
+.dropdown-menu{
+    z-index: 10;
+}
+
 .dropdown-item{
     cursor:pointer;
 }

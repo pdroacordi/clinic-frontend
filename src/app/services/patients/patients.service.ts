@@ -45,6 +45,8 @@ export class PatientsService {
     let header = {
       "Authorization" : this.authService.getToken()
     };
-    return this.http.put<Patient>(`${environment.API_URL}/patients/${patient.id}`, patient, {headers: header});
+    const { media, ...patientWithoutMedia } = patient;
+    console.log(patientWithoutMedia);
+    return this.http.put<Patient>(`${environment.API_URL}/patients/${patient.id}`, patientWithoutMedia, {headers: header});
   }
 }

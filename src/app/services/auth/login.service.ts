@@ -15,6 +15,7 @@ export class LoginService {
   constructor(private router: Router, private http: HttpClient) { }
 
   public submitLogin(user: User): Observable<Token> {
+    console.log(user);
     return this.http.post<Token>(`${environment.API_URL}/login`, user);
   }
 

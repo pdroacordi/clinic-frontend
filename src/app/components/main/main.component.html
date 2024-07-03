@@ -16,6 +16,10 @@
                     (click)="searchByName()"><img
                         src="https://img.icons8.com/?size=22&id=132&format=png&color=000000" /></button>
             </form>
+            <div class="mx-2 mt-3 mt-lg-1 d-flex align-items-center" (click)="logout()">
+                <i class="fa-solid fa-right-from-bracket fa-2x" style="cursor: pointer;"></i>
+                <span class="mx-2 d-inline-block d-lg-none">Sair</span>
+            </div>
         </div>
     </div>
 </nav>
@@ -29,21 +33,25 @@
     <div class="col-12">
         <div class="card mb-3">
             <div class="row g-0">
-              <div class="col-md-1 d-flex align-items-center">
-                <img [src]="PATIENT.diagnosis.pictureLink ? PATIENT.diagnosis.pictureLink : 'https://ui-avatars.com/api/?name='+PATIENT.name.charAt(0) " class="img-fluid rounded" alt="..." style="width: 100%;">
-              </div>
-              <div class="col-md-4">
-                <div class="card-body">
-                  <a [routerLink]="['/anamnesis', PATIENT.id]"><h5 class="card-title">{{ PATIENT.name }}</h5></a>
-                  <p class="card-text">{{ PATIENT.diagnosis.clinicalDiagnosis }}</p>
-                  <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                <div class="col-md-1 d-flex align-items-center">
+                    <img [src]="PATIENT.diagnosis.pictureLink ? PATIENT.diagnosis.pictureLink : 'https://ui-avatars.com/api/?name='+PATIENT.name.charAt(0) "
+                        class="img-fluid rounded" alt="..." style="width: 100%;">
                 </div>
-              </div>
+                <div class="col-md-4">
+                    <div class="card-body">
+                        <a [routerLink]="['/anamnesis', PATIENT.id]">
+                            <h5 class="card-title">{{ PATIENT.name }}</h5>
+                        </a>
+                        <p class="card-text">{{ PATIENT.diagnosis.clinicalDiagnosis }}</p>
+                        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
             </div>
-          </div>
+        </div>
     </div>
 </div>
 <div *ngIf="hasMorePages && !isSearching" class="d-flex align-items-center justify-content-center">
     <button id="see-more" type="button" class="btn btn-primary" (click)="loadMorePatients()">Ver Mais</button>
 </div>
-<a [routerLink]="['/anamnesis', 'new']"><button class="fab"><i class="fa-solid fa-plus" style="color: #000000;"></i></button></a>
+<a [routerLink]="['/anamnesis', 'new']"><button class="fab"><i class="fa-solid fa-plus"
+            style="color: #000000;"></i></button></a>

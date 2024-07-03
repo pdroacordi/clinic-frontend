@@ -3,6 +3,7 @@ import { PatientsService } from '../../services/patients/patients.service';
 import { Patient } from '../../model/Patient';
 import { Pageable } from '../../model/Pageable';
 import { Router } from '@angular/router';
+import { LoginService } from '../../services/auth/login.service';
 
 @Component({
   selector: 'app-main',
@@ -17,7 +18,7 @@ export class MainComponent implements OnInit {
   public curPatientPage : number = 0;
   public hasMorePages : boolean = true;
   public isSearching : boolean = false;
-  public constructor(private patientService: PatientsService, private router : Router) {
+  public constructor(private patientService: PatientsService, private authService : LoginService, private router : Router) {
       this.getPatientList();
   }
   ngOnInit(): void {
@@ -73,5 +74,10 @@ export class MainComponent implements OnInit {
         this.loading = false;
       }
     })
+  }
+
+  public logout(){
+    this.authService.logout();
+    this.router.navigate(['/login'])
   }
 }
