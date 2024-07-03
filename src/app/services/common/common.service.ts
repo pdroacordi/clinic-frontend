@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CEP } from '../../model/cepAPI';
+import { CEP } from '../../model/CepAPI';
 import { Observable } from 'rxjs';
 
 @Injectable({

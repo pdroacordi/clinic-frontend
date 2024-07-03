@@ -47,7 +47,7 @@
     margin-right: 10px;
 }
 
-.btn-primary .fas{
+.btn-primary .fas {
     margin-right: 10px;
 }
 
@@ -74,12 +74,54 @@
 
 .overlay {
     position: fixed;
-    width: 100%; 
+    width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.5); 
-    z-index: 1; 
-  }
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.media-link{
+    color: black;
+}
+
+.media-link .fa-solid{
+    margin-right: 10px;
+}
+
+.text-container {
+    margin-left: 10px;
+    max-width: 50px; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.my-dropdown{
+    background-color: transparent;
+    border: none;
+    font-size: 1em;
+}
+
+.dropdown-item{
+    cursor:pointer;
+}
+
+@media only screen and (min-width: 425px) {
+    .text-container {
+        max-width: 100px;
+    }
+}
+@media only screen and (min-width: 768px) {
+    .text-container {
+        max-width: 175px;
+    }
+}
+@media only screen and (min-width: 1024px) {
+    .text-container {
+        max-width: 220px;
+    }
+}

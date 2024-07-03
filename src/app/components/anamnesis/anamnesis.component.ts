@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CEP } from '../../model/cepAPI';
+import { CEP } from '../../model/CepAPI';
 import { CommonService } from '../../services/common/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Patient } from '../../model/Patient';
@@ -8,6 +8,7 @@ import { format, parseISO } from 'date-fns';
 import { PathToFile } from '../../model/PathToFile';
 import { UploadService } from '../../services/upload/upload.service';
 import { Media } from '../../model/Media';
+import { MessageModel } from '../../model/MessageModel';
 
 enum Tab {
   BASIC = 'basic',
@@ -29,7 +30,7 @@ export class AnamnesisComponent implements OnInit {
   public patient: Patient = new Patient();
   private idPatient: string = "";
   public file: File | null = null;
-  public mediaDesc : string = "";
+  public mediaDesc: string = "";
 
   public alertMsg: string = "";
   public alertTitle: string = "";
@@ -160,24 +161,58 @@ export class AnamnesisComponent implements OnInit {
   }
 
   public saveMedia(): void {
-    if (this.file) {
-      let formData = new FormData();
-      formData.append("file", this.file, this.file.name);
-      this.loading = true;
-      this.uploadService.uploadFile(formData).subscribe({
-        next: (res: PathToFile) => {
-          this.loading = false;
-          let m : Media = new Media();
-          m.link = res.path;
-          m.name = this.mediaDesc;
-          this.patient.media.push(m);
-        },
-        error: (err: any) => {
-          this.loading = false;
-          this.showAlert("Erro", "Falha ao realizar envio de mídia");
-        }
-      });
+    if (!this.file) {
+      return;
     }
+    let formData = new FormData();
+    formData.append("file", this.file, this.file.name);
+    this.loading = true;
+    this.uploadService.uploadFile(formData).subscribe({
+      next: (res: PathToFile) => {
+        let m: Media = new Media();
+        m.link = res.path;
+        m.name = this.mediaDesc;
+        m.patient = this.patient;
+        if (this.idPatient !== "new") {
+          this.uploadService.saveMedia(m).subscribe({
+            next: (res: Media) => {
+              this.showAlert("Sucesso", "Mídia enviada com sucesso")
+            },
+            error: (err: any) => {
+              console.error(err);
+            }
+          })
+        }
+        this.loading = false;
+        this.patient.media.push(m);
+      },
+      error: (err: any) => {
+        this.loading = false;
+        this.showAlert("Erro", "Falha ao realizar envio de mídia");
+      }
+    });
+  }
+
+  public deleteMedia(index: number){
+    let media : Media = this.patient.media[index];
+    this.uploadService.deleteFile(media).subscribe({
+      next: (res: MessageModel) => {
+        this.uploadService.deleteMedia(media).subscribe({
+          next: (res: MessageModel) => {
+            this.patient.media.splice(index, 1);
+            this.showAlert("Sucesso", "Mídia excluída com sucesso.");
+          },
+          error: (err: any) => {
+            console.error(err);
+            this.showAlert("Erro", "Não foi possível mídia");
+          }
+        })
+      },
+      error: (err: any) => {
+        console.error(err);
+        this.showAlert("Erro", "Não foi possível excluir arquivo");
+      }
+    })
   }
 
 }

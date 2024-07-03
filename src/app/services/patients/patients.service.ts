@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Patient } from '../../model/Patient';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { LoginService } from '../auth/login.service';
 import { Pageable } from '../../model/Pageable';
 
@@ -45,7 +45,6 @@ export class PatientsService {
     let header = {
       "Authorization" : this.authService.getToken()
     };
-    console.log(patient);
     return this.http.put<Patient>(`${environment.API_URL}/patients/${patient.id}`, patient, {headers: header});
   }
 }
